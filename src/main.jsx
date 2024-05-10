@@ -11,6 +11,9 @@ import AllJobs from "./components/AllJobs";
 import AppliedJobs from "./components/AppliedJobs";
 import MyJobs from "./components/MyJobs";
 import AddJobs from "./components/AddJobs";
+import Authentication from "./firebase/Authentication";
+import User from "./components/User";
+import PrivateRoute from "./firebase/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -19,42 +22,48 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
       },
       {
         path: "/allJobs",
-        element: <AllJobs></AllJobs>
+        element: <AllJobs></AllJobs>,
       },
       {
         path: "/blogs",
-        element: <Blogs></Blogs>
+        element: <Blogs></Blogs>,
       },
       {
         path: "/login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/register",
-        element: <Register></Register>
+        element: <Register></Register>,
       },
       {
         path: "/addJobs",
-        element: <AddJobs></AddJobs>
+        element: <PrivateRoute><AddJobs></AddJobs></PrivateRoute>,
       },
       {
         path: "/appliedJobs",
-        element: <AppliedJobs></AppliedJobs>
+        element: <PrivateRoute><AppliedJobs></AppliedJobs></PrivateRoute>,
       },
       {
         path: "/myJobs",
-        element: <MyJobs></MyJobs>
+        element: <PrivateRoute><MyJobs></MyJobs></PrivateRoute>,
       },
-    ]
+      {
+        path: "/user",
+        element: <PrivateRoute><User></User></PrivateRoute>,
+      },
+    ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <Authentication>
       <RouterProvider router={router} />
+    </Authentication>
   </React.StrictMode>
 );
