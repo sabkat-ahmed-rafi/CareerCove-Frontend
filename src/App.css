@@ -1,0 +1,39 @@
+/* Define the animation */
+@keyframes hideDropdown {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Apply animation to the dropdown */
+.disappear-3s {
+    animation: hideDropdown 3s forwards;
+}
+
+.activeRoute a {
+  outline: none;
+}
+.activeRoute a.active {
+  background: linear-gradient(220.55deg, #fff500 0%, #ff00b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* For Safari */
+  background-clip: text;
+  color: transparent;
+}
+
+.activeRoute a:focus,
+.activeRoute a:hover {
+  outline: none; /* Remove default outline */
+  box-shadow: none; /* Remove default box shadow */
+  color: white;
+  background-image: linear-gradient(220.55deg, #fff500 0%, #ff00b8 100%);
+  background-image: linear-gradient(220.55deg, #fff500 0%, #ff00b8 100%);
+}
+
