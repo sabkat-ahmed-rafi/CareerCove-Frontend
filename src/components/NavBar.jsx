@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../App.css";
 import useAuth from "../hooks/useAuth";
@@ -6,22 +6,37 @@ import axios from "axios";
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
-  console.log(user)
-  const [usersInfo, setUsersInfo] = useState([]);
+  console.log(user);
+
+  const [userData, setUserData] = useState([])
+  const [singleUserData, setSingleUserData] = useState({})
+
+
+  useEffect(()=> {
+    axios.get("http://localhost:3000/user")
+   .then(data => {
+     setUserData(data.data)
+    console.log(data.data)
+    console.log(userData)
+    const userInfo = userData?.find(data => data?.email === user?.email)
+    setSingleUserData(userInfo)
+   })
+  },[user])
+
+  console.log(userData)
+
+  
+
+  console.log(singleUserData)
+
+
+
 
   const handleLogOut = () => {
     logOut().then(() => {
       // Sign-out successful.
     });
   };
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/user")
-      .then((data) => setUsersInfo(data.data));
-  }, []);
-
-  const singleUser = usersInfo.find((users) => users?.email == user?.email);
 
   const li = (
     <>
@@ -34,7 +49,7 @@ const NavBar = () => {
             <NavLink to="/allJobs">All Jobs</NavLink>
           </li>
           <li className="font-bold activeRoute">
-            <NavLink to="/appliedJobs">Applied Jobs</NavLink>
+            <NavLink to={`/appliedJobs`}>Applied Jobs</NavLink>
           </li>
           <li className="font-bold activeRoute">
             <NavLink to="/addJobs">Add Jobs</NavLink>
@@ -114,18 +129,14 @@ const NavBar = () => {
                     <div className="w-14 rounded-full">
                       <img
                         alt="Photo"
-                        src={
-                          singleUser?.photoUrl
-                            ? singleUser?.photoUrl
-                            : user?.photoURL
-                        }
+                        src={singleUserData? singleUserData.photoUrl : user.photoURL}
                       />
                     </div>
                   </div>
                   <ul className="absolute right-5 mt-0 z-[6] p-2 shadow menu menu-sm dropdown-content bg-slate-100 rounded-box w-52 hidden group-hover:block disappear-3s ">
                     <li>
                       <a className="justify-between font-bold">
-                        {user.displayName ? user.displayName : "Not Provided"}
+                        {user.displayName ? user.displayName: 'Not Provided'}
                         <span className="badge font-bold">New</span>
                       </a>
                     </li>

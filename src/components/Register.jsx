@@ -4,12 +4,13 @@ import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const Register = () => {
 
     const navigate = useNavigate();
 
-    const {register, loading} = useAuth()
+    const {register, loading, setUsersInfo} = useAuth()
 
     const handleRegister = (e) => {
         e.preventDefault();

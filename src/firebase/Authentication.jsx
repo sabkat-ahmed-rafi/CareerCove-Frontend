@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import React, { createContext, useEffect, useState } from 'react';
 import auth from './firebase.init';
 
+
 export const AuthContext = createContext()
 
 
@@ -33,24 +34,38 @@ const Authentication = ({children}) => {
     const logOut = () => {
         return signOut(auth)
     }
+    
 
     // get the currently signed in use 
-    useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            if (currentUser) {
-                console.log(currentUser);
-                setUser(currentUser);
-                setLoading(false);
-            } else {
-                setUser(null);
-                setLoading(false);
-            }
-        }) 
-
-        return () => {
-            unSubscribe()
+useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        if (currentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            setUser(currentUser);
+            setLoading(false);
+        } else {
+            localStorage.removeItem('currentUser');
+            setUser(null);
+            setLoading(false);
         }
-    }, [])
+    }, error => {
+        console.error('Authentication error:', error);
+        localStorage.removeItem('currentUser');
+        setUser(null);
+        setLoading(false);
+    }); 
+
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (storedUser) {
+        setUser(storedUser);
+    }
+
+    return () => {
+        unSubscribe()
+    }
+}, [])
+
+
 
 
     const userInfo = {register, login, logOut, googleLogin, user,setLoading, loading}

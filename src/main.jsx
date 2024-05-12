@@ -14,6 +14,9 @@ import AddJobs from "./components/AddJobs";
 import Authentication from "./firebase/Authentication";
 import User from "./components/User";
 import PrivateRoute from "./firebase/PrivateRoute";
+import { NextUIProvider } from "@nextui-org/react";
+import JobDetails from "./components/JobDetails";
+
 
 const router = createBrowserRouter([
   {
@@ -42,19 +45,45 @@ const router = createBrowserRouter([
       },
       {
         path: "/addJobs",
-        element: <PrivateRoute><AddJobs></AddJobs></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <AddJobs></AddJobs>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/appliedJobs",
-        element: <PrivateRoute><AppliedJobs></AppliedJobs></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <AppliedJobs></AppliedJobs>
+          </PrivateRoute>
+        ),
+        loader:async () => await fetch("http://localhost:3000/appliedJobs")
       },
       {
         path: "/myJobs",
-        element: <PrivateRoute><MyJobs></MyJobs></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <MyJobs></MyJobs>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/user",
-        element: <PrivateRoute><User></User></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <User></User>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/allJobs/:id",
+        element: (
+          <PrivateRoute>
+            <JobDetails></JobDetails>
+          </PrivateRoute>
+        ),
+        loader: ({params}) => fetch(`http://localhost:3000/allJobs/${params.id}`)
       },
     ],
   },
@@ -63,7 +92,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Authentication>
-      <RouterProvider router={router} />
+      <NextUIProvider>
+        <RouterProvider router={router} />
+      </NextUIProvider>
     </Authentication>
   </React.StrictMode>
 );

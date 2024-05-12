@@ -5,12 +5,17 @@ import useAuth from '../hooks/useAuth';
 
 const PrivateRoute = ({children}) => {
 
-    const {user, loading} = useAuth();
+    const {user, loading, setLoading} = useAuth();
 
     const location = useLocation();
 
     if(loading){
         return <span className="loading z-50 text-[#F31260] loading-bars loading-lg sticky top-[300px] left-[650px]"></span>
+    }
+
+    if(!user){
+        setLoading(true)
+        
     }
 
     if(user) {
