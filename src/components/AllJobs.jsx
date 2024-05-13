@@ -100,6 +100,7 @@ const AllJobs = () => {
                   <Link to={`/allJobs/${job._id}`}>
                     <Button onClick={handleCheck} color="danger" variant="shadow">
                       Details
+
                     </Button>
                   </Link>
                 </TableCell>

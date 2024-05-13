@@ -19,6 +19,7 @@ const JobDetails = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     
     const loadedJob = useLoaderData();
+    console.log(loadedJob)
     const {user} = useAuth()
     const navigate = useNavigate()
 

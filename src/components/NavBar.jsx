@@ -12,23 +12,22 @@ const NavBar = () => {
   const [singleUserData, setSingleUserData] = useState({})
 
 
-  useEffect(()=> {
+  useEffect(() => {
     axios.get("http://localhost:3000/user")
-   .then(data => {
-     setUserData(data.data)
-    console.log(data.data)
-    console.log(userData)
-    const userInfo = userData?.find(data => data?.email === user?.email)
-    setSingleUserData(userInfo)
-   })
-  },[user])
-
-  console.log(userData)
-
+      .then(response => {
+        setUserData(response.data);
+      setTimeout(() => {
+        const userInfo = response.data.find(data => data.email === user.email);
+        setSingleUserData(userInfo || {});
+      }, 3000);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }, [user]);
   
-
+  
   console.log(singleUserData)
-
 
 
 
@@ -59,9 +58,6 @@ const NavBar = () => {
           </li>
           <li className="font-bold activeRoute">
             <NavLink to="/blogs">Blogs</NavLink>
-          </li>
-          <li className="font-bold activeRoute">
-            <NavLink to="/user">User</NavLink>
           </li>
         </>
       ) : (
@@ -129,7 +125,7 @@ const NavBar = () => {
                     <div className="w-14 rounded-full">
                       <img
                         alt="Photo"
-                        src={singleUserData? singleUserData.photoUrl : user.photoURL}
+                        src={singleUserData == undefined || null || {} ? user.photoURL || singleUserData.photoUrl : singleUserData.photoUrl }
                       />
                     </div>
                   </div>

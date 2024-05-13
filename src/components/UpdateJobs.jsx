@@ -1,19 +1,23 @@
-import React, { useState } from "react";
-import { DatePicker } from "@nextui-org/react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import useAuth from "../hooks/useAuth";
+import { DatePicker } from '@nextui-org/react';
+import React, { useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
-const AddJobs = () => {
-  const {user} = useAuth()
-  const [option, setOption] = useState();
-  const [deadline, setDeadline] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
+const UpdateJobs = () => {
 
-  const handleAddJobs = (e) => {
-    e.preventDefault();
+    const navigate = useNavigate()
+    const [option, setOption] = useState();
+    const [deadline, setDeadline] = useState(
+      new Date().toISOString().slice(0, 10)
+    );
+  
+
+    const loadedUpdateJobs = useLoaderData()
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
 
     const form = e.target;
 
@@ -26,7 +30,6 @@ const AddJobs = () => {
     const salary = form.salary.value;
     const jobDeadline = deadline.toString().slice(0, 10);
     const jobOption = option;
-    const postDate = new Date().toISOString().slice(0, 10)
 
     // Validating the Form
     const jobPostValue = {
@@ -39,36 +42,36 @@ const AddJobs = () => {
       salary,
       jobDeadline,
       jobOption,
-      postDate
     };
     console.log(jobPostValue);
 
     // Sending Data to the Database
-    axios.post("http://localhost:3000/allJobs", jobPostValue)
+    axios.put(`http://localhost:3000/updateJobs/${loadedUpdateJobs._id}`, jobPostValue)
     .then((data) => {
       console.log(data.data);
+      navigate('/myJobs')
       // Success message
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Post Successfully",
+        title: "Post Successfully Updated",
         showConfirmButton: false,
         timer: 2000,
       });
-      navigate("/myJobs")
     });
-  };
+    }
 
-  return (
-    <>
-      <section className="border w-[900px] mx-auto rounded-3xl mb-14 shadow-lg shadow-pink-500 ">
-        <form onSubmit={handleAddJobs} className="pl-9 py-6">
+    return (
+        <>
+            <section className="border w-[900px] mx-auto rounded-3xl shadow-lg shadow-pink-500 ">
+        <form onSubmit={handleUpdate} className="pl-9 py-6">
           <section className="flex space-x-7 mx-auto">
             <div>
               <label className="label">
                 <span className="label-text font-bold">Name</span>
               </label>
               <input
+              defaultValue={loadedUpdateJobs.name}
                 name="name"
                 type="text"
                 placeholder="Name"
@@ -80,7 +83,7 @@ const AddJobs = () => {
                 <span className="label-text font-bold">Email</span>
               </label>
               <input
-              defaultValue={user.email}
+              defaultValue={loadedUpdateJobs.email}
                 name="email"
                 type="text"
                 placeholder="Email"
@@ -94,6 +97,7 @@ const AddJobs = () => {
                 <span className="label-text font-bold">Job Title</span>
               </label>
               <input
+              defaultValue={loadedUpdateJobs.title}
                 name="title"
                 type="text"
                 placeholder="Job Title"
@@ -105,6 +109,7 @@ const AddJobs = () => {
                 <span className="label-text font-bold">PhotoURL</span>
               </label>
               <input
+              defaultValue={loadedUpdateJobs.photo}
                 name="photo"
                 type="text"
                 placeholder="PhotoURL"
@@ -117,6 +122,7 @@ const AddJobs = () => {
               <span className="label-text font-bold">Jobs Category</span>
             </label>
             <select
+            defaultValue={loadedUpdateJobs.jobOption}
               onChange={(e) => setOption(e.target.value)}
               className="select select-bordered w-[820px] "
             >
@@ -135,6 +141,7 @@ const AddJobs = () => {
                 <span className="label-text font-bold">Job Description</span>
               </label>
               <input
+              defaultValue={loadedUpdateJobs.description}
                 name="description"
                 type="text"
                 placeholder="Description"
@@ -148,6 +155,7 @@ const AddJobs = () => {
                 </span>
               </label>
               <input
+              defaultValue={loadedUpdateJobs.applicantNumber}
                 name="applicantNumber"
                 type="text"
                 placeholder="Should be Zero"
@@ -161,6 +169,7 @@ const AddJobs = () => {
                 <span className="label-text font-bold">Salary Range</span>
               </label>
               <input
+              defaultValue={loadedUpdateJobs.salary}
                 name="salary"
                 placeholder="Salary Range"
                 type="text"
@@ -178,13 +187,13 @@ const AddJobs = () => {
           </section>
           <section>
             <button className="mt-5 btn w-[400px] text-white font-extrabold bg-gradient-to-r from-yellow-400 to-pink-500">
-              Post Job
+              Update Job
             </button>
           </section>
         </form>
       </section>
-    </>
-  );
+        </>
+    );
 };
 
-export default AddJobs;
+export default UpdateJobs;

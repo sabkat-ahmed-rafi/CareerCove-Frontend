@@ -12,16 +12,18 @@ import AppliedJobs from "./components/AppliedJobs";
 import MyJobs from "./components/MyJobs";
 import AddJobs from "./components/AddJobs";
 import Authentication from "./firebase/Authentication";
-import User from "./components/User";
 import PrivateRoute from "./firebase/PrivateRoute";
 import { NextUIProvider } from "@nextui-org/react";
 import JobDetails from "./components/JobDetails";
+import UpdateJobs from "./components/UpdateJobs";
+import Error from "./components/Error";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -58,7 +60,7 @@ const router = createBrowserRouter([
             <AppliedJobs></AppliedJobs>
           </PrivateRoute>
         ),
-        loader:async () => await fetch("http://localhost:3000/appliedJobs")
+      
       },
       {
         path: "/myJobs",
@@ -69,12 +71,13 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/user",
+        path: "/updateJobs/:id",
         element: (
           <PrivateRoute>
-            <User></User>
+            <UpdateJobs></UpdateJobs>
           </PrivateRoute>
         ),
+        loader: ({params}) => fetch(`http://localhost:3000/updateJobs/${params.id}`) 
       },
       {
         path: "/allJobs/:id",
