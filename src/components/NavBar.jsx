@@ -3,10 +3,14 @@ import { Link, NavLink } from "react-router-dom";
 import "../App.css";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import {Switch} from "@nextui-org/react";
+import { MdSunny } from "react-icons/md";
+import { IoMdMoon } from "react-icons/io";
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
   console.log(user);
+  const [darkMode, setDarkMode] = useState(true)
 
   const [userData, setUserData] = useState([])
   const [singleUserData, setSingleUserData] = useState({})
@@ -17,7 +21,7 @@ const NavBar = () => {
       .then(response => {
         setUserData(response.data);
       setTimeout(() => {
-        const userInfo = response.data.find(data => data.email === user.email);
+        const userInfo = response.data.find(data => data?.email === user?.email);
         setSingleUserData(userInfo || {});
       }, 3000);
       })
@@ -36,6 +40,22 @@ const NavBar = () => {
       // Sign-out successful.
     });
   };
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setDarkMode(storedTheme === "dark");
+    } else {
+      setDarkMode(false);
+    }
+  }, []);
+
+  const handleTheme = () => {
+      const body = document.getElementById('myTheme')
+      const newTheme = darkMode ? "light" : "dark";
+      body.setAttribute("data-theme", newTheme)
+      setDarkMode(!darkMode)
+  }
 
   const li = (
     <>
@@ -59,6 +79,16 @@ const NavBar = () => {
           <li className="font-bold activeRoute">
             <NavLink to="/blogs">Blogs</NavLink>
           </li>
+          <Switch
+      defaultSelected
+      className=""
+      size="sm"
+      color="danger"
+      startContent={<MdSunny />}
+      endContent={<IoMdMoon />}
+      onChange={handleTheme}
+    >
+    </Switch>
         </>
       ) : (
         <>
@@ -129,7 +159,7 @@ const NavBar = () => {
                       />
                     </div>
                   </div>
-                  <ul className="absolute right-5 mt-0 z-[6] p-2 shadow menu menu-sm dropdown-content bg-slate-100 rounded-box w-52 hidden group-hover:block disappear-3s ">
+                  <ul className="absolute right-5 mt-0 z-[6] p-2 shadow menu menu-sm dropdown-content  rounded-box w-52 hidden group-hover:block disappear-3s ">
                     <li>
                       <a className="justify-between font-bold">
                         {user.displayName ? user.displayName: 'Not Provided'}

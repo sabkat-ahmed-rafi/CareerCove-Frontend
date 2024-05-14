@@ -9,14 +9,15 @@ import { Link } from 'react-router-dom';
 const MyJobs = () => {
 
     const {user} = useAuth()
+    console.log(user.email)
 
     const [myJobs, setMyJobs] =useState([])
 
-
+    const email = user.email
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/allJobs?email=${user.email}`)
+        axios.get(`http://localhost:3000/allJobs?email=${email}`)
         .then(response => {
             console.log(response.data)
             setMyJobs(response.data)
@@ -24,7 +25,7 @@ const MyJobs = () => {
         }).catch(error => {
             console.log(error.message)
         })
-    },[user.email])
+    },[email])
 
 
     const handleDelete = (_id) => {
@@ -46,7 +47,7 @@ const MyJobs = () => {
     return (
         <>
         <Header h1={"My Posted Jobs"}></Header>
-            <section className='mx-[100px] mb-14'>
+            <section className='mx-[100px] pb-14'>
             <Table 
             className='shadow-lg shadow-pink-500 rounded-b-2xl'
         color={"default"}

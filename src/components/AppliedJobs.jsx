@@ -3,7 +3,6 @@ import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
 import { usePDF } from "react-to-pdf";
 import { Button } from "@nextui-org/react";
-import {Select, SelectItem} from "@nextui-org/react";
 import Header from "./Header";
 import axios from "axios";
 
@@ -74,7 +73,7 @@ const AppliedJobs = () => {
   <option value={"Part-Time"}>Part-Time</option>
 </select>
     </section>
-    <div className="flex flex-wrap justify-center gap-5 mb-14">
+    <div className="flex flex-wrap justify-center gap-5 pb-14">
       {myAppliedJobs.map((jobs) => (
         <section key={jobs._id} className="w-[400px] border rounded-md p-4 shadow-xl shadow-rose-300">
           <section>

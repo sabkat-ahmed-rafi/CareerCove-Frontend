@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword,signInWithPopup, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import auth from './firebase.init';
+import axios from 'axios';
 
 
 export const AuthContext = createContext()
@@ -39,14 +40,18 @@ const Authentication = ({children}) => {
     // get the currently signed in use 
 useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        setUser(currentUser);
+        setLoading(false);
+        const userEmail = currentUser?.email || user?.email
+        const loggedUser = { email: userEmail }
         if (currentUser) {
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            setUser(currentUser);
-            setLoading(false);
+            axios.post("http://localhost:3000/jwt", loggedUser)
+            .then(response => {console.log(response.data)})
         } else {
             localStorage.removeItem('currentUser');
-            setUser(null);
-            setLoading(false);
+            axios.post("http://localhost:3000/logout", loggedUser)
+            .then(response => {console.log(response.data)})
         }
     }, error => {
         console.error('Authentication error:', error);

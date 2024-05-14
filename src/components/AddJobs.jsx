@@ -3,6 +3,7 @@ import { DatePicker } from "@nextui-org/react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 
 const AddJobs = () => {
@@ -11,6 +12,8 @@ const AddJobs = () => {
   const [deadline, setDeadline] = useState(
     new Date().toISOString().slice(0, 10)
   );
+
+  const navigate = useNavigate()
 
   const handleAddJobs = (e) => {
     e.preventDefault();
@@ -56,12 +59,13 @@ const AddJobs = () => {
         timer: 2000,
       });
       navigate("/myJobs")
-    });
+    }).catch(err => console.log(err))
   };
 
   return (
     <>
-      <section className="border w-[900px] mx-auto rounded-3xl mb-14 shadow-lg shadow-pink-500 ">
+        <section className="pb-14">
+        <section className="border border-t-0 rounded-t-none w-[900px] mx-auto rounded-3xl  shadow-lg shadow-pink-500 ">
         <form onSubmit={handleAddJobs} className="pl-9 py-6">
           <section className="flex space-x-7 mx-auto">
             <div>
@@ -183,6 +187,7 @@ const AddJobs = () => {
           </section>
         </form>
       </section>
+        </section>
     </>
   );
 };

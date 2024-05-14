@@ -63,7 +63,8 @@ const UpdateJobs = () => {
 
     return (
         <>
-            <section className="border w-[900px] mx-auto rounded-3xl shadow-lg shadow-pink-500 ">
+            <section className='pb-14'> 
+            <section className="border w-[900px] mx-auto rounded-3xl shadow-lg shadow-pink-500">
         <form onSubmit={handleUpdate} className="pl-9 py-6">
           <section className="flex space-x-7 mx-auto">
             <div>
@@ -192,6 +193,7 @@ const UpdateJobs = () => {
           </section>
         </form>
       </section>
+            </section>
         </>
     );
 };

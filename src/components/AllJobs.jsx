@@ -23,6 +23,7 @@ const AllJobs = () => {
   const [search, setSearch] = useState("");
   const {user} = useAuth()
   const navigate = useNavigate();
+  const email = user.email
 
   useEffect(() => {
     axios.get(`http://localhost:3000/allJobs?search=${search}`)
@@ -71,7 +72,7 @@ const AllJobs = () => {
           type="search"
         />
       </section>
-      <section className=" mb-14 px-12">
+      <section className="pb-14 px-12">
         <Table
           color={"default"}
           selectionMode="single"

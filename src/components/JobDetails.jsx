@@ -73,7 +73,7 @@ const JobDetails = () => {
 
   return (
     <>
-      <article className="flex justify-center items-center mt-2 mb-14">
+      <article className="flex justify-center items-center mt-2 pb-14">
         <section className="w-[40%] space-y-3">
           <div className="space-y-3">
             <h1 className="text-2xl font-semibold font-serif">

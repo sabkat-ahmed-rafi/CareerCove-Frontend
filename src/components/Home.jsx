@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import JobTabs from "./JobTabs";
 import Header from "./Header";
 import useAuth from "../hooks/useAuth";
+import Globe from "./Globe"
 
 const Home = () => {
     const {loading} = useAuth()
@@ -13,13 +14,12 @@ const Home = () => {
       )}
       <Banner></Banner>
       <section>
-        <Header
-          h1={"Job Type Preferences"}
-          p={
-            "Explore job opportunities based on your preferred work arrangement. Whether you're seeking on-site, remote, hybrid, or part-time positions, find the perfect fit for your lifestyle and career goals."
-          }
-        ></Header>
+        
         <JobTabs></JobTabs>
+
+        <section>
+          <Globe></Globe>
+        </section>
       </section>
     </>
   );

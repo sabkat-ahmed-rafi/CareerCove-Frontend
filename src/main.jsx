@@ -17,7 +17,12 @@ import { NextUIProvider } from "@nextui-org/react";
 import JobDetails from "./components/JobDetails";
 import UpdateJobs from "./components/UpdateJobs";
 import Error from "./components/Error";
+import Token from "./components/Token";
+import Nest from "./components/Nest";
+import Express from "./components/Express";
+import axios from "axios";
 
+axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
   {
@@ -60,7 +65,6 @@ const router = createBrowserRouter([
             <AppliedJobs></AppliedJobs>
           </PrivateRoute>
         ),
-      
       },
       {
         path: "/myJobs",
@@ -77,7 +81,8 @@ const router = createBrowserRouter([
             <UpdateJobs></UpdateJobs>
           </PrivateRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:3000/updateJobs/${params.id}`) 
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/updateJobs/${params.id}`),
       },
       {
         path: "/allJobs/:id",
@@ -86,7 +91,20 @@ const router = createBrowserRouter([
             <JobDetails></JobDetails>
           </PrivateRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:3000/allJobs/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/allJobs/${params.id}`),
+      },
+      {
+        path: "/token",
+        element: <Token></Token>,
+      },
+      {
+        path: "/express",
+        element: <Express></Express>,
+      },
+      {
+        path: "/nest",
+        element: <Nest></Nest>,
       },
     ],
   },

@@ -5,13 +5,27 @@ import Remote from "./Remote";
 import Hybrid from "./Hybrid";
 import PartTime from "./PartTime";
 import AllCategory from "./AllCategory";
+import useAuth from "../hooks/useAuth";
+import Header from "./Header";
 
 const JobTabs = () => {
+
+  const {user} = useAuth()
+
+  if(!user){
+    return ''
+  }
 
 
   return (
     <>
-      <section className="mx-[50px] mt-3 mb-12 relative">
+    <Header
+          h1={"Job Type Preferences"}
+          p={
+            "Explore job opportunities based on your preferred work arrangement. Whether you're seeking on-site, remote, hybrid, or part-time positions, find the perfect fit for your lifestyle and career goals."
+          }
+        ></Header>
+      <section className="mx-[50px] mt-3 pb-12 relative">
       <div className="flex w-full flex-col">
       <Tabs aria-label="Options" color={"danger"} variant={"bordered"}>
         <Tab key="On-Site" title="On-Site">
