@@ -17,7 +17,7 @@ const NavBar = () => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:3000/user")
+    axios.get("https://career-cove-backend.vercel.app/user")
       .then(response => {
         setUserData(response.data);
       setTimeout(() => {

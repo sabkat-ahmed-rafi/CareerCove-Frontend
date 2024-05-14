@@ -23,10 +23,9 @@ const AllJobs = () => {
   const [search, setSearch] = useState("");
   const {user} = useAuth()
   const navigate = useNavigate();
-  const email = user.email
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/allJobs?search=${search}`)
+    axios.get(`https://career-cove-backend.vercel.app/allJobs?search=${search}`)
     .then((data) => {
       setJobs(data.data);
     });

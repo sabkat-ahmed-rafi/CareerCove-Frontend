@@ -9,7 +9,7 @@ const Remote = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/allJobs?remote=${remote}`)
+      .get(`https://career-cove-backend.vercel.app/allJobs?remote=${remote}`)
       .then((response) => {
         setRemoteData(response.data);
         console.log(response.data);

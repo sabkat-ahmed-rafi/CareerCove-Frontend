@@ -47,7 +47,7 @@ const AddJobs = () => {
     console.log(jobPostValue);
 
     // Sending Data to the Database
-    axios.post("http://localhost:3000/allJobs", jobPostValue)
+    axios.post("https://career-cove-backend.vercel.app/allJobs", jobPostValue)
     .then((data) => {
       console.log(data.data);
       // Success message

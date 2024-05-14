@@ -20,7 +20,7 @@ const AppliedJobs = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/appliedJobs?filter=${filter}`)
+    axios.get(`https://career-cove-backend.vercel.app/appliedJobs?filter=${filter}`)
       .then(response => {
         // Handle successful response
         setLoadedAppliedJobs(response.data);

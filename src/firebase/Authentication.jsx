@@ -46,11 +46,11 @@ useEffect(() => {
         const loggedUser = { email: userEmail }
         if (currentUser) {
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            axios.post("http://localhost:3000/jwt", loggedUser)
+            axios.post("https://career-cove-backend.vercel.app/jwt", loggedUser)
             .then(response => {console.log(response.data)})
         } else {
             localStorage.removeItem('currentUser');
-            axios.post("http://localhost:3000/logout", loggedUser)
+            axios.post("https://career-cove-backend.vercel.app/logout", loggedUser)
             .then(response => {console.log(response.data)})
         }
     }, error => {

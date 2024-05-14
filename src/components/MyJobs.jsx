@@ -17,7 +17,7 @@ const MyJobs = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/allJobs?email=${email}`)
+        axios.get(`https://career-cove-backend.vercel.app/allJobs?email=${email}`)
         .then(response => {
             console.log(response.data)
             setMyJobs(response.data)
@@ -29,7 +29,7 @@ const MyJobs = () => {
 
 
     const handleDelete = (_id) => {
-        axios.delete(`http://localhost:3000/allJobs/${_id}`)
+        axios.delete(`https://career-cove-backend.vercel.app/allJobs/${_id}`)
        .then(response => {
         setMyJobs(myJobs.filter(job => job._id !== _id))
        })

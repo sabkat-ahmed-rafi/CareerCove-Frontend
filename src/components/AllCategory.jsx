@@ -9,7 +9,7 @@ const AllCategory = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/allJobs`)
+      .get(`https://career-cove-backend.vercel.app/allJobs`)
       .then((response) => {
         setAllCategoryData(response.data);
         console.log(response.data);

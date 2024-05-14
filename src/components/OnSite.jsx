@@ -9,7 +9,7 @@ const OnSite = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/allJobs?onSite=${onSite}`)
+      .get(`https://career-cove-backend.vercel.app/allJobs?onSite=${onSite}`)
       .then((response) => {
         setOnSiteData(response.data);
         console.log(response.data);

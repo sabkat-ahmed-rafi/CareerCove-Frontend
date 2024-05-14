@@ -9,7 +9,7 @@ const Hybrid = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/allJobs?hybrid=${hybrid}`)
+      .get(`https://career-cove-backend.vercel.app/allJobs?hybrid=${hybrid}`)
       .then((response) => {
         setHybridData(response.data);
         console.log(response.data);

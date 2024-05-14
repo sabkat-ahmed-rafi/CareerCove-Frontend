@@ -68,7 +68,7 @@ const Register = () => {
 
         console.log(formData);
         
-        axios.post('http://localhost:3000/user', formData)
+        axios.post('https://career-cove-backend.vercel.app/user', formData)
         .then(data => {
           console.log(data.data);
         })

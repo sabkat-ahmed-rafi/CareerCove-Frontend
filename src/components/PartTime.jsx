@@ -9,7 +9,7 @@ const PartTime = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/allJobs?partTime=${partTime}`)
+      .get(`https://career-cove-backend.vercel.app/allJobs?partTime=${partTime}`)
       .then((response) => {
         setPartTimeData(response.data);
         console.log(response.data);

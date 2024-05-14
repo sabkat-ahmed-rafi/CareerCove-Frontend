@@ -82,7 +82,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/updateJobs/${params.id}`),
+          fetch(`https://career-cove-backend.vercel.app/updateJobs/${params.id}`),
       },
       {
         path: "/allJobs/:id",
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/allJobs/${params.id}`),
+          fetch(`https://career-cove-backend.vercel.app/allJobs/${params.id}`),
       },
       {
         path: "/token",

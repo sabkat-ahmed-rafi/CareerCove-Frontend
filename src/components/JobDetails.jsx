@@ -56,7 +56,7 @@ const JobDetails = () => {
 
         const appliedJobsInfo = { _id, title, photo, description, salary, jobDeadline, jobOption, postDate, applyerName, applyerEmail, cv };
 
-        axios.post("http://localhost:3000/appliedJobs", {appliedJobsInfo})
+        axios.post("https://career-cove-backend.vercel.app/appliedJobs", {appliedJobsInfo})
         .then(data => {
             console.log(data);
         })

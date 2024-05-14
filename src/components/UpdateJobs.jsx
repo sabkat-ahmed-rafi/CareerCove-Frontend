@@ -46,7 +46,7 @@ const UpdateJobs = () => {
     console.log(jobPostValue);
 
     // Sending Data to the Database
-    axios.put(`http://localhost:3000/updateJobs/${loadedUpdateJobs._id}`, jobPostValue)
+    axios.put(`https://career-cove-backend.vercel.app/updateJobs/${loadedUpdateJobs._id}`, jobPostValue)
     .then((data) => {
       console.log(data.data);
       navigate('/myJobs')
