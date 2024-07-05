@@ -14,7 +14,7 @@ Welcome to **CareerCove**, a job marketplace where users can post job listings a
 - **Frontend:**
   - React
   - React Router
-  - animate.css
+  - Tailwind
 - **Backend:**
   - Node.js
   - Express.js
